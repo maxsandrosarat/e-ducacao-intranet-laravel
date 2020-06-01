@@ -2,16 +2,13 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <img src="/storage/liceu.png" alt="logo_liceu" width="10%">
+    <img src="/storage/logo/logo.png" alt="logo_escola" width="10%">
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <ul class="navbar-nav mr-auto">
             <!--ADMIN-->
             @auth("admin")
             <li @if($current=="home") class="nav-item active" @else class="nav-item" @endif>
                 <a class="nav-link" href="/admin">Home</a>
-            </li>
-            <li @if($current=="estoque") class="nav-item active" @else class="nav-item" @endif>
-                <a class="nav-link" href="/admin/estoque">Estoque</a>
             </li>
             <li @if($current=="administrativo") class="nav-item active" @else class="nav-item" @endif>
                 <a class="nav-link" href="/admin/administrativo">Administrativo</a>
@@ -76,10 +73,10 @@
                 <a class="nav-link" href="{{ route('aluno.login') }}">{{ __('Login(Aluno)') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('prof.login') }}">{{ __('Login(Prof)') }}</a>
+                <a class="nav-link" href="{{ route('prof.login') }}">{{ __('Login(Professor)') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('outro.login') }}">{{ __('Login(Outro)') }}</a>
+                <a class="nav-link" href="{{ route('outro.login') }}">{{ __('Login(Colaborador)') }}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.login') }}">{{ __('Login(Admin)') }}</a>

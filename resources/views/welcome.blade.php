@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Liceu</title>
-        <link rel="shortcut icon" href="/storage/favicon.png"/>
+        <title>Escola</title>
+        <link rel="shortcut icon" href="/storage/logo/favicon.png"/>
         
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -56,6 +56,7 @@
                 letter-spacing: .1rem;
                 text-decoration: none;
                 text-transform: uppercase;
+                font-weight: bold;
             }
 
             .m-b-md {
@@ -82,11 +83,12 @@
                                     <!--@if (Route::has('register'))
                                         <a href="{{ route('register') }}">Cadastre-se</a>
                                     @endif-->
-                                        <a href="{{ route('aluno.login') }}">Login (Aluno)</a>
-                                        <a href="{{ route('prof.login') }}">Login (Professor)</a>
-                                        <a href="{{ route('outro.login') }}">Login (Outro)</a>
-                                        <!--<a href="{{ route('login') }}">Login (Usuário)</a>-->
-                                        <a href="{{ route('admin.login') }}">Login (Admin)</a>
+                                        FAÇA LOGIN COMO
+                                        <a href="{{ route('aluno.login') }}">ALUNO</a>
+                                        <a href="{{ route('prof.login') }}">PROFESSOR</a>
+                                        <a href="{{ route('outro.login') }}">COLABORADOR</a>
+                                        <!--<a href="{{ route('login') }}">USUÁRIO</a>-->
+                                        <a href="{{ route('admin.login') }}">ADMIN</a>
                                 @endauth
                             @endauth
                         @endauth
@@ -97,7 +99,7 @@
             <div class="content">
                 <h2>Seja Bem-vindo! Ao intranet (externo) do</h2>
                 <div class="title m-b-md">
-                    <img src="/storage/liceu.png" alt="logo_liceu" width="30%">
+                    <img src="/storage/logo/logo.png" alt="logo_escola" width="30%">
                 </div>
                 @auth("web")
                     <b> <h3>Você está logado como  {{Auth::user()->name}}  !</h3>

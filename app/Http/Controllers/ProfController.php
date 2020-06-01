@@ -7,7 +7,6 @@ use App\Atividade;
 use App\AtividadeRetorno;
 use App\Conteudo;
 use App\Disciplina;
-use App\ListaAtividade;
 use App\Prof;
 use App\ProfDisciplina;
 use App\Turma;
@@ -287,99 +286,6 @@ class ProfController extends Controller
         $turmas = TurmaDisciplina::where('disciplina_id',"$discId")->get();
         $tipo = "filtro";
         return view('profs.atividade_prof', compact('disciplina','turmas','atividades','tipo'));
-    }
-
-    public function painelListaAtividades($data){
-        $lafund = ListaAtividade::where('dia', "$data")->where('ensino','fund')->count();
-        $lamedio = ListaAtividade::where('dia', "$data")->where('ensino','medio')->count();
-        if($lafund==0){
-            $discs = Disciplina::where('ensino','fund')->get();
-            $turmas = Turma::where('ensino','fund')->where('turma','A')->get();
-            foreach($turmas as $turma){
-                foreach($discs as $disc){
-                    $lf = new ListaAtividade();
-                    $lf->dia = $data;
-                    $lf->serie = $turma->serie;
-                    $lf->ensino = "fund";
-                    $lf->disciplina_id = $disc->id;
-                    $lf->save();
-                }
-            }
-        }
-        if($lamedio==0){
-            $discs = Disciplina::where('ensino','medio')->get();
-            $turmas = Turma::where('ensino','medio')->get();
-            foreach($turmas as $turma){
-                foreach($discs as $disc){
-                    $lm = new ListaAtividade();
-                    $lm->dia = $data;
-                    $lm->serie = $turma->serie;
-                    $lm->ensino = "medio";
-                    $lm->disciplina_id = $disc->id;
-                    $lm->save();
-                }
-            }
-        }
-        $profId = Auth::user()->id;
-        $profDiscs = ProfDisciplina::where('prof_id',"$profId")->get();
-        $fundTurmas = Turma::where('turma','A')->where('ensino','fund')->get();
-        $medioTurmas = Turma::where('turma','A')->where('ensino','medio')->get();
-        $fundDiscs = Disciplina::where('ensino','fund')->get();
-        $medioDiscs = Disciplina::where('ensino','medio')->get();
-        $laFunds = ListaAtividade::orderBy('disciplina_id')->where('dia', "$data")->where('ensino','fund')->get();
-        $laMedios = ListaAtividade::orderBy('disciplina_id')->where('dia', "$data")->where('ensino','medio')->get();
-        return view('profs.lista_atividade',compact('data','profDiscs','fundTurmas','medioTurmas','fundDiscs','medioDiscs','laFunds','laMedios'));
-    }
-
-    public function anexarListaAtividade($id, Request $request)
-    {
-        $la = ListaAtividade::find($id);
-        $path = $request->file('arquivo')->store('las','public');
-        if($la->arquivo==null || $la->arquivo==""){
-            $la->arquivo = $path;
-            $la->save();
-        } else {
-            $arquivo = $la->arquivo;
-            Storage::disk('public')->delete($arquivo);
-            $la->arquivo = $path;
-            $la->save();
-        }
-        return back();
-    }
-
-    public function downloadListaAtividade($id)
-    {
-        $la = ListaAtividade::find($id);
-        $serie = $la->serie;
-        $discId = $la->disciplina_id;
-        $disciplina = Disciplina::find($discId);
-        $nameFile = "";
-        switch ($serie) {
-                case "6": $nameFile = "6º - LA ".date("d-m-Y", strtotime($la->dia))." - ".$disciplina->nome; break;
-                case "7": $nameFile = "7º - LA ".date("d-m-Y", strtotime($la->dia))." - ".$disciplina->nome; break;
-                case "8": $nameFile = "8º - LA ".date("d-m-Y", strtotime($la->dia))." - ".$disciplina->nome; break;
-                case "9": $nameFile = "9º - LA ".date("d-m-Y", strtotime($la->dia))." - ".$disciplina->nome; break;
-                case "1": $nameFile = "1º - LA ".date("d-m-Y", strtotime($la->dia))." - ".$disciplina->nome; break;
-                case "2": $nameFile = "2º - LA ".date("d-m-Y", strtotime($la->dia))." - ".$disciplina->nome; break;
-                case "3": $nameFile = "3º - LA ".date("d-m-Y", strtotime($la->dia))." - ".$disciplina->nome; break;
-                default: $nameFile = "";
-        };
-        if(isset($la)){
-            $path = Storage::disk('public')->getDriver()->getAdapter()->applyPathPrefix($la->arquivo);
-            $extension = pathinfo($path, PATHINFO_EXTENSION);
-            $name = $nameFile.".".$extension;
-            return response()->download($path, $name);
-        }
-        return back();
-    }
-
-    public function apagarListaAtividade($id){
-        $la = ListaAtividade::find($id);
-        $arquivo = $la->arquivo;
-        Storage::disk('public')->delete($arquivo);
-        $la->arquivo = "";
-        $la->save();
-        return back();
     }
 
     public function disciplinasOcorrencias(){

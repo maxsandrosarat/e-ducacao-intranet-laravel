@@ -65,11 +65,20 @@
             </div>
             <div class="card border border-primary">
                 <div class="card-body">
-                    <h5>Outros</h5>
+                    <h5>Colaboradores</h5>
                     <p class="card-text">
-                        Consultar e cadastrar Outros
+                        Consultar e cadastrar Colaboradores
                     </p>
-                    <a href="/outro/consulta" class="btn btn-primary">Outros</a>
+                    <a href="/outro/consulta" class="btn btn-primary">Colaboradores</a>
+                </div>
+            </div>
+            <div class="card border border-primary">
+                <div class="card-body">
+                    <h5>Estoque</h5>
+                    <p class="card-text">
+                        Consultar e cadastrar Estoque
+                    </p>
+                    <a href="/admin/estoque" class="btn btn-primary">Estoque</a>
                 </div>
             </div>
             <div class="card border border-primary">

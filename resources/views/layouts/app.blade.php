@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <title>Liceu</title>
-    <link rel="shortcut icon" href="/storage/favicon.png"/>
+    <title>Escola</title>
+    <link rel="shortcut icon" href="/storage/logo/favicon.png"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
@@ -12,7 +12,7 @@
     <style>
         body{
             padding: 20px;
-            background-image: url("/storage/liceu.svg");
+            background-image: url("/storage/logo/escola.svg");
             background-color: #cccccc; 
             background-position: center;
             background-repeat: no-repeat;

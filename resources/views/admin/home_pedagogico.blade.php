@@ -6,24 +6,6 @@
         <div class="card-deck">
             <div class="card border border-primary">
                 <div class="card-body">
-                    <h5>Atividades Extras</h5>
-                    <p class="card-text">
-                        Consultar e cadastrar Atividades Extras
-                    </p>
-                    <a href="/atividadeExtra" class="btn btn-primary">Atividades Extras</a>
-                </div>
-            </div>
-            <div class="card border border-primary">
-                <div class="card-body">
-                    <h5>Listas Atividades</h5>
-                    <p class="card-text">
-                        Consultar e cadastrar Listas Atividades
-                    </p>
-                    <a href="/admin/listaAtividade" class="btn btn-primary">Listas Atividades</a>
-                </div>
-            </div>
-            <div class="card border border-primary">
-                <div class="card-body">
                     <h5>Atividades</h5>
                     <p class="card-text">
                         Consultar e cadastrar Atividades
@@ -44,7 +26,7 @@
                 <div class="card-body">
                     <h5>Conteúdos</h5>
                     <p class="card-text">
-                        Consultar conteúdos
+                        Gerar Campos e Consultar Conteúdos
                     </p>
                     <a href="/admin/conteudos/{{date("Y")}}" class="btn btn-primary">Conteúdos</a>
                 </div>

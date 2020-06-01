@@ -8,13 +8,9 @@ use App\Disciplina;
 use App\Turma;
 use App\Atividade;
 use App\Aluno;
-use App\AtividadeExtra;
-use App\LaFund;
-use App\LaMedio;
 use App\TipoOcorrencia;
 use App\Ocorrencia;
 use App\Conteudo;
-use App\ListaAtividade;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -46,97 +42,6 @@ class AdminController extends Controller
         return redirect('/admin');
     }
 
-    public function painel_lista_atividade($data){
-        $lafund = ListaAtividade::where('dia', "$data")->where('ensino','fund')->count();
-        $lamedio = ListaAtividade::where('dia', "$data")->where('ensino','medio')->count();
-        if($lafund==0){
-            $discs = Disciplina::where('ensino','fund')->get();
-            $turmas = Turma::where('ensino','fund')->where('turma','A')->get();
-            foreach($turmas as $turma){
-                foreach($discs as $disc){
-                    $lf = new ListaAtividade();
-                    $lf->dia = $data;
-                    $lf->serie = $turma->serie;
-                    $lf->ensino = "fund";
-                    $lf->disciplina_id = $disc->id;
-                    $lf->save();
-                }
-            }
-        }
-        if($lamedio==0){
-            $discs = Disciplina::where('ensino','medio')->get();
-            $turmas = Turma::where('ensino','medio')->get();
-            foreach($turmas as $turma){
-                foreach($discs as $disc){
-                    $lm = new ListaAtividade();
-                    $lm->dia = $data;
-                    $lm->serie = $turma->serie;
-                    $lm->ensino = "medio";
-                    $lm->disciplina_id = $disc->id;
-                    $lm->save();
-                }
-            }
-        }
-        $fundTurmas = Turma::where('turma','A')->where('ensino','fund')->get();
-        $medioTurmas = Turma::where('turma','A')->where('ensino','medio')->get();
-        $fundDiscs = Disciplina::where('ensino','fund')->get();
-        $medioDiscs = Disciplina::where('ensino','medio')->get();
-        $laFunds = ListaAtividade::orderBy('disciplina_id')->where('dia', "$data")->where('ensino','fund')->get();
-        $laMedios = ListaAtividade::orderBy('disciplina_id')->where('dia', "$data")->where('ensino','medio')->get();
-        return view('admin.lista_atividade_admin',compact('data','fundTurmas','medioTurmas','fundDiscs','medioDiscs','laFunds','laMedios'));
-    }
-
-    public function anexar($id, Request $request)
-    {
-        $la = ListaAtividade::find($id);
-        $path = $request->file('arquivo')->store('las','public');
-        if($la->arquivo==null || $la->arquivo==""){
-            $la->arquivo = $path;
-            $la->save();
-        } else {
-            $arquivo = $la->arquivo;
-            Storage::disk('public')->delete($arquivo);
-            $la->arquivo = $path;
-            $la->save();
-        }
-        return back();
-    }
-
-    public function download($id)
-    {
-        $la = ListaAtividade::find($id);
-        $serie = $la->serie;
-        $discId = $la->disciplina_id;
-        $disciplina = Disciplina::find($discId);
-        $nameFile = "";
-        switch ($serie) {
-                case "6": $nameFile = "6º - LA ".date("d-m-Y", strtotime($la->dia))." - ".$disciplina->nome; break;
-                case "7": $nameFile = "7º - LA ".date("d-m-Y", strtotime($la->dia))." - ".$disciplina->nome; break;
-                case "8": $nameFile = "8º - LA ".date("d-m-Y", strtotime($la->dia))." - ".$disciplina->nome; break;
-                case "9": $nameFile = "9º - LA ".date("d-m-Y", strtotime($la->dia))." - ".$disciplina->nome; break;
-                case "1": $nameFile = "1º - LA ".date("d-m-Y", strtotime($la->dia))." - ".$disciplina->nome; break;
-                case "2": $nameFile = "2º - LA ".date("d-m-Y", strtotime($la->dia))." - ".$disciplina->nome; break;
-                case "3": $nameFile = "3º - LA ".date("d-m-Y", strtotime($la->dia))." - ".$disciplina->nome; break;
-                default: $nameFile = "";
-        };
-        if(isset($la)){
-            $path = Storage::disk('public')->getDriver()->getAdapter()->applyPathPrefix($la->arquivo);
-            $extension = pathinfo($path, PATHINFO_EXTENSION);
-            $name = $nameFile.".".$extension;
-            return response()->download($path, $name);
-        }
-        return back();
-    }
-
-    public function apagar($id){
-        $la = ListaAtividade::find($id);
-        $arquivo = $la->arquivo;
-        Storage::disk('public')->delete($arquivo);
-        $la->arquivo = "";
-        $la->save();
-        return back();
-    }
-
     //PROF
     public function painelAtividades(){
         $discs = Disciplina::orderBy('nome')->get();
@@ -144,35 +49,6 @@ class AdminController extends Controller
         $atividades = Atividade::orderBy('id','desc')->paginate(10);
         $tipo = "painel";
         return view('admin.atividade_admin', compact('discs','turmas','atividades','tipo'));
-    }
-
-    //PROF
-    public function novaAtividade(Request $request)
-    {
-        $discId = $request->input('disciplina');
-        $profs = DB::table('profs')->select(DB::raw("id"))->where('disciplina_id', "$discId")->get();
-        foreach($profs as $prof){
-            $profId = $prof->id;
-        }
-        $path = $request->file('arquivo')->store('atividades','public');
-        $atividade = new Atividade();
-        $atividade->prof_id = $profId;
-        $atividade->disciplina_id = $request->input('disciplina');
-        $atividade->turma_id = $request->input('turma');
-        $atividade->data_criacao = date("Y/m/d");
-        if($request->input('dataPublicacao')!=""){
-            $atividade->data_publicacao = $request->input('dataPublicacao');
-        }
-        if($request->input('dataExpiracao')!=""){
-            $atividade->data_expiracao = $request->input('dataExpiracao');
-        }
-        $atividade->descricao = $request->input('descricao');
-        $atividade->link = $request->input('link');
-        $atividade->visualizacoes = 0;
-        $atividade->arquivo = $path;
-        $atividade->save();
-        
-        return redirect('/admin/atividade');
     }
 
     //PROF
@@ -530,112 +406,4 @@ class AdminController extends Controller
         $cont->save();
         return back();
     }
-
-    public function painel_ae($ano, $n, $bim){
-        $validador = AtividadeExtra::where('numero', "$n")->where('bimestre',"$bim")->where('ano',"$ano")->count();
-        if($validador==0){
-            return back()->with('mensagem', 'Os campos para anexar as AEs não foram gerados, por favor gerar!');
-        } else {
-            $fundTurmas = Turma::where('turma','A')->where('ensino','fund')->get();
-            $medioTurmas = Turma::where('turma','A')->where('ensino','medio')->get();
-            $fundDiscs = Disciplina::where('ensino','fund')->get();
-            $medioDiscs = Disciplina::where('ensino','medio')->get();
-            $aeFunds = AtividadeExtra::orderBy('disciplina_id')->where('numero', "$n")->where('bimestre',"$bim")->where('ensino','fund')->get();
-            $aeMedios = AtividadeExtra::orderBy('disciplina_id')->where('numero', "$n")->where('bimestre',"$bim")->where('ensino','medio')->get();
-            return view('admin.atividade_extra',compact('fundTurmas','medioTurmas','fundDiscs','medioDiscs','aeFunds','aeMedios'));
-        }
-    }
-
-    public function gerar_ae(Request $request){
-        $bimestre = $request->input('bimestre');
-        $qtd = $request->input('qtd');
-        $discs = Disciplina::all();
-        $ano = date("Y");
-        $turmas = Turma::where('turma','A')->get();
-        for($i=1; $i<=$qtd; $i++){
-                foreach($turmas as $turma){
-                    $serie = $turma->serie;
-                    $ensino = $turma->ensino;
-                    foreach($discs as $disc){
-                        if($disc->ensino=="fund" && $ensino=="fund"){
-                            $validador = AtividadeExtra::where('numero',"$i")->where('bimestre', "$bimestre")->where('ano', "$ano")->where('serie', "$serie")->where('ensino', 'fund')->where('disciplina_id', "$disc->id")->count();
-                            if($validador == 0){
-                                $ae = new AtividadeExtra();
-                                $ae->numero = $i;
-                                $ae->bimestre = $bimestre;
-                                $ae->ano = $ano;
-                                $ae->serie = $serie;
-                                $ae->ensino = "fund";
-                                $ae->disciplina_id = $disc->id;
-                                $ae->save();
-                            }
-                        } else if($disc->ensino=="medio" && $ensino=="medio"){
-                            $validador = AtividadeExtra::where('numero',"$i")->where('bimestre', "$bimestre")->where('ano', "$ano")->where('serie', "$serie")->where('ensino', 'medio')->where('disciplina_id', "$disc->id")->count();
-                            if($validador == 0){
-                                $ae = new AtividadeExtra();
-                                $ae->numero = $i;
-                                $ae->bimestre = $bimestre;
-                                $ae->ano = $ano;
-                                $ae->serie = $serie;
-                                $ae->ensino = "medio";
-                                $ae->disciplina_id = $disc->id;
-                                $ae->save();
-                            }
-                        }
-                    }
-                }
-        }
-        return back()->with('mensagem', 'AEs geradas com sucesso!');
-    }
-
-    public function anexar_ae(Request $request, $id)
-    {
-        $path = $request->file('arquivo')->store('aes','public');
-        $ae = AtividadeExtra::find($id);
-        if($ae->arquivo=="" || $ae->arquivo==null){
-            $ae->arquivo = $path;
-            $ae->save();
-        } else {
-            $arquivo = $ae->arquivo;
-            Storage::disk('public')->delete($arquivo);
-            $ae->arquivo = $path;
-            $ae->save();
-        }
-        return back();
-    }
-
-    public function download_ae($id)
-    {
-        $ae = AtividadeExtra::find($id);
-        $discId = $ae->disciplina_id;
-        $disciplina = Disciplina::find($discId);
-        $nameFile = "";
-        switch ($ae->serie) {
-                case 6: $nameFile = "6º - AE 0".$ae->numero." ".$ae->bimestre."º Bim - ".$disciplina->nome; break;
-                case 7: $nameFile = "7º - AE 0".$ae->numero." ".$ae->bimestre."º Bim - ".$disciplina->nome; break;
-                case 8: $nameFile = "8º - AE 0".$ae->numero." ".$ae->bimestre."º Bim - ".$disciplina->nome; break;
-                case 9: $nameFile = "9º - AE 0".$ae->numero." ".$ae->bimestre."º Bim - ".$disciplina->nome; break;
-                case 1: $nameFile = "1º - AE 0".$ae->numero." ".$ae->bimestre."º Bim - ".$disciplina->nome; break;
-                case 2: $nameFile = "2º - AE 0".$ae->numero." ".$ae->bimestre."º Bim - ".$disciplina->nome; break;
-                case 3: $nameFile = "3º - AE 0".$ae->numero." ".$ae->bimestre."º Bim - ".$disciplina->nome; break;
-                default: $nameFile = "";
-        };
-        if(isset($ae)){
-            $path = Storage::disk('public')->getDriver()->getAdapter()->applyPathPrefix($ae->arquivo);
-            $extension = pathinfo($path, PATHINFO_EXTENSION);
-            $name = $nameFile.".".$extension;
-            return response()->download($path, $name);
-        }
-        return back();
-    }
-
-    public function apagar_ae($id){
-        $ae = AtividadeExtra::find($id);
-        $arquivo = $ae->arquivo;
-        Storage::disk('public')->delete($arquivo);
-        $ae->arquivo = "";
-        $ae->save();
-        return back();
-    }
-
 }
