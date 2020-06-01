@@ -6,11 +6,11 @@
         <div class="card-deck">
             <div class="card border border-primary">
                 <div class="card-body">
-                    <h5>Lista de Atividades</h5>
+                    <h5>Atividades</h5>
                     <p class="card-text">
-                        baixar os arquivos de Atividades
+                        Baixar os arquivos de Atividades e enviar Retorno
                     </p>
-                    <a href="/aluno/disciplinas" class="btn btn-primary">Lista de Atividades</a>
+                    <a href="/aluno/atividade/disciplinas" class="btn btn-primary">Atividades</a>
                 </div>
             </div>
         </div>

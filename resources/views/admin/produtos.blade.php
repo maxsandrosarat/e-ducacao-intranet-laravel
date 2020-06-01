@@ -132,10 +132,10 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="card-footer">
+                {{ $prods->links() }}
+            </div>
             @endif
-        </div>
-        <div class="card-footer">
-            {{ $prods->links() }}
         </div>
     </div>
     <br>

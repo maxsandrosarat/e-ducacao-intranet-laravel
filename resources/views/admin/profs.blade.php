@@ -8,7 +8,6 @@
                 <i class="material-icons blue md-60">add_circle</i>
             </a>
             @if(count($profs)==0)
-                <br/><br/>
                 <div class="alert alert-danger" role="alert">
                     Sem professores cadastrados!
                 </div>

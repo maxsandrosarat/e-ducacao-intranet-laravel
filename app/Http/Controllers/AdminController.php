@@ -42,6 +42,24 @@ class AdminController extends Controller
         return redirect('/admin');
     }
 
+    public function templates($nome){
+        if($nome=="aluno"){
+            $nameFile = "import_alunos";
+            $path = Storage::disk('public')->getDriver()->getAdapter()->applyPathPrefix("templates/import_alunos.xlsx");
+            $extension = pathinfo($path, PATHINFO_EXTENSION);
+            $name = $nameFile.".".$extension;
+            return response()->download($path, $name);
+        } else if($nome=="outro"){
+            $nameFile = "import_outro";
+            $path = Storage::disk('public')->getDriver()->getAdapter()->applyPathPrefix("templates/import_outro.xlsx");
+            $extension = pathinfo($path, PATHINFO_EXTENSION);
+            $name = $nameFile.".".$extension;
+            return response()->download($path, $name);
+        } else {
+            return back();
+        }
+    }
+
     //PROF
     public function painelAtividades(){
         $discs = Disciplina::orderBy('nome')->get();

@@ -8,7 +8,6 @@
                 <i class="material-icons blue md-60">add_circle</i>
             </a>
             @if(count($turmaDiscs)==0)
-                <br/><br/>
                 <div class="alert alert-danger" role="alert">
                     Sem disciplinas para as turmas cadastradas!
                 </div>
@@ -40,7 +39,6 @@
             </table>
             @endif
         </div>
-    <br>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <div class="modal-content">

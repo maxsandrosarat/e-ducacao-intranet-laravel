@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <title>Escola</title>
-    <link rel="shortcut icon" href="/storage/logo/favicon.png"/>
+    <title>E-ducAção</title>
+    <link rel="shortcut icon" href="/storage/logos/favicon.ico"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->

@@ -39,7 +39,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary btn-sn">Salvar</button>
-                        <button type="cancel" class="btn btn-danger btn-sn">Cancelar</button>
                     </div>
                 </form>
                 </div>
@@ -101,7 +100,6 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-primary btn-sn">Salvar</button>
-                                        <button type="cancel" class="btn btn-danger btn-sn">Cancelar</button>
                                     </div>
                                 </form>
                                 </div>

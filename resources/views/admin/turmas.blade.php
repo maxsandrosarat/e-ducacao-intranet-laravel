@@ -5,7 +5,6 @@
         <div class="card-body">
             <h5 class="card-title">Lista de Turmas</h5>
             @if(count($turmas)==0)
-                <br/><br/>
                 <div class="alert alert-danger" role="alert">
                     Sem turmas cadastradas!
                 </div>

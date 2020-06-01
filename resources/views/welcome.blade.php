@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Escola</title>
-        <link rel="shortcut icon" href="/storage/logo/favicon.png"/>
+        <title>E-ducAção</title>
+        <link rel="shortcut icon" href="/storage/logos/favicon.ico"/>
         
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -99,7 +99,7 @@
             <div class="content">
                 <h2>Seja Bem-vindo! Ao intranet (externo) do</h2>
                 <div class="title m-b-md">
-                    <img src="/storage/logo/logo.png" alt="logo_escola" width="30%">
+                    <img src="/storage/logos/logo.svg" alt="logo_escola" width="20%">
                 </div>
                 @auth("web")
                     <b> <h3>Você está logado como  {{Auth::user()->name}}  !</h3>

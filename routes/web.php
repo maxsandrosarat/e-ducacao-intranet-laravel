@@ -6,66 +6,80 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin/estoque', function () {
-    return view('admin.home_estoque');
-})->middleware('auth:admin');
-Route::get('/admin/administrativo', function () {
-    return view('admin.home_administrativo');
-})->middleware('auth:admin');
-Route::get('/admin/pedagogico', function () {
-    return view('admin.home_pedagogico');
-})->middleware('auth:admin');
-Route::get('/admin', 'AdminController@index')->name('admin.dashboard');
-Route::get('/admin/novo', 'AdminController@create');
-Route::post('/admin', 'AdminController@store');
-Route::get('/admin/login', 'Auth\AdminLoginController@index')->name('admin.login');
-Route::post('/admin/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
-Route::get('/admin/atividade', 'AdminController@painelAtividades');
-Route::post('/admin/atividade', 'AdminController@novaAtividade');
-Route::get('/admin/atividade/download/{id}', 'AdminController@downloadAtividade');
-Route::post('/admin/atividade/editar/{id}', 'AdminController@editarAtividade');
-Route::get('/admin/atividade/apagar/{id}', 'AdminController@apagarAtividade');
-Route::get('/admin/atividade/filtro', 'AdminController@filtro_atividade');
-Route::get('/admin/listaAtividade', function () {
-    return view('admin.home_las_admin');
-})->middleware('auth:admin');
-Route::get('/admin/listaAtividade/painel/{data}', 'AdminController@painel_lista_atividade');
-Route::post('/admin/listaAtividade/anexar/{id}', 'AdminController@anexar');
-Route::get('/admin/listaAtividade/download/{id}', 'AdminController@download');
-Route::get('/admin/listaAtividade/apagar/{id}', 'AdminController@apagar');
-Route::get('/admin/ocorrencias', 'AdminController@indexOcorrencias');
-Route::get('/admin/ocorrencias/apagar/{id}', 'AdminController@apagarOcorrencia');
-Route::get('/admin/ocorrencias/filtro', 'AdminController@filtroOcorrencias');
-Route::get('/admin/conteudos/{a}', 'AdminController@index_conteudos');
-Route::get('/admin/conteudos', 'AdminController@index_conteudos_ano');
-Route::get('/admin/conteudos/painel/{a}/{b}/{t}', 'AdminController@painel_conteudo');
-Route::post('/admin/conteudos/gerar', 'AdminController@gerar_conteudo');
-Route::post('/admin/conteudos/anexar/{id}', 'AdminController@anexar_conteudo');
-Route::get('/admin/conteudos/download/{id}', 'AdminController@download_conteudo');
-Route::get('/admin/conteudos/apagar/{id}', 'AdminController@apagar_conteudo');
-Route::get('/atividadeExtra', function () {
-    return view('admin.home_aes');
-})->middleware('auth:admin');
-Route::get('/atividadeExtra/{a}/{b}/{t}', 'AdminController@painel_ae');
-Route::post('/atividadeExtra/gerar', 'AdminController@gerar_ae');
-Route::post('/atividadeExtra/anexar/{id}', 'AdminController@anexar_ae');
-Route::get('/atividadeExtra/download/{id}', 'AdminController@download_ae');
-Route::get('/atividadeExtra/apagar/{id}', 'AdminController@apagar_ae');
 
-Route::get('/aluno/login', 'Auth\AlunoLoginController@index')->name('aluno.login');
-Route::post('/aluno/login', 'Auth\AlunoLoginController@login')->name('aluno.login.submit');
-Route::get('/aluno', 'AlunoController@index')->name('aluno.dashboard')->middleware('auth:aluno');
-Route::get('/aluno/consulta', 'AlunoController@consulta')->middleware('auth:admin');
-Route::post('/aluno', 'AlunoController@store')->middleware('auth:admin');
-Route::get('/aluno/filtro', 'AlunoController@filtro')->middleware('auth:admin');
-Route::post('/aluno/editar/{id}', 'AlunoController@update')->middleware('auth:admin');
-Route::get('/aluno/apagar/{id}', 'AlunoController@destroy')->middleware('auth:admin');
-Route::post('/aluno/file', 'AlunoController@file')->middleware('auth:admin');
-Route::get('/aluno/disciplinas', 'AlunoController@disciplinas')->middleware('auth:aluno');
-Route::get('/aluno/atividade/{d}', 'AlunoController@painelAtividades')->middleware('auth:aluno');
-Route::get('/aluno/atividade/download/{id}', 'AlunoController@downloadAtividade')->middleware('auth:aluno');
-Route::post('/aluno/atividade/retorno/{id}', 'AlunoController@retornoAtividade')->middleware('auth:aluno');
-Route::post('/aluno/atividade/retorno/editar/{id}', 'AlunoController@editarRetornoAtividade')->middleware('auth:aluno');
+Route::group(['prefix' => 'admin'], function() {
+    Route::get('', 'AdminController@index')->name('admin.dashboard');
+    Route::get('/novo', 'AdminController@create');
+    Route::post('', 'AdminController@store');
+    Route::get('/login', 'Auth\AdminLoginController@index')->name('admin.login');
+    Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+
+    Route::get('/administrativo', function () {
+        return view('admin.home_administrativo');
+    })->middleware('auth:admin');
+    Route::get('/estoque', function () {
+        return view('admin.home_estoque');
+    })->middleware('auth:admin');
+    Route::get('/pedagogico', function () {
+        return view('admin.home_pedagogico');
+    })->middleware('auth:admin');
+
+    Route::get('/templates/download/{nome}', 'AdminController@templates');
+
+    
+    Route::group(['prefix' => 'atividade'], function() {
+        Route::get('/', 'AdminController@painelAtividades');
+        Route::post('/', 'AdminController@novaAtividade');
+        Route::get('/download/{id}', 'AdminController@downloadAtividade');
+        Route::post('/editar/{id}', 'AdminController@editarAtividade');
+        Route::get('/apagar/{id}', 'AdminController@apagarAtividade');
+        Route::get('/filtro', 'AdminController@filtro_atividade');
+    });
+
+    
+    Route::group(['prefix' => 'ocorrencias'], function() {
+        Route::get('/', 'AdminController@indexOcorrencias');
+        Route::get('/apagar/{id}', 'AdminController@apagarOcorrencia');
+        Route::get('/filtro', 'AdminController@filtroOcorrencias');
+    });
+
+    
+    Route::group(['prefix' => 'conteudos'], function() {
+        Route::get('/{a}', 'AdminController@index_conteudos');
+        Route::get('/', 'AdminController@index_conteudos_ano');
+        Route::get('/painel/{a}/{b}/{t}', 'AdminController@painel_conteudo');
+        Route::post('/gerar', 'AdminController@gerar_conteudo');
+        Route::post('/anexar/{id}', 'AdminController@anexar_conteudo');
+        Route::get('/download/{id}', 'AdminController@download_conteudo');
+        Route::get('/apagar/{id}', 'AdminController@apagar_conteudo');
+    });
+
+});
+
+
+Route::group(['prefix' => 'aluno'], function() {
+    Route::get('/login', 'Auth\AlunoLoginController@index')->name('aluno.login');
+    Route::post('/login', 'Auth\AlunoLoginController@login')->name('aluno.login.submit');
+    Route::get('/', 'AlunoController@index')->name('aluno.dashboard')->middleware('auth:aluno');
+
+    Route::get('/consulta', 'AlunoController@consulta')->middleware('auth:admin');
+    Route::post('/', 'AlunoController@store')->middleware('auth:admin');
+    Route::get('/filtro', 'AlunoController@filtro')->middleware('auth:admin');
+    Route::post('/editar/{id}', 'AlunoController@update')->middleware('auth:admin');
+    Route::get('/apagar/{id}', 'AlunoController@destroy')->middleware('auth:admin');
+    Route::post('/file', 'AlunoController@file')->middleware('auth:admin');
+
+    
+    Route::group(['prefix' => 'atividade'], function() {
+        Route::get('/disciplinas', 'AlunoController@disciplinas')->middleware('auth:aluno');
+        Route::get('/{d}', 'AlunoController@painelAtividades')->middleware('auth:aluno');
+        Route::get('/download/{id}', 'AlunoController@downloadAtividade')->middleware('auth:aluno');
+        Route::post('/retorno/{id}', 'AlunoController@retornoAtividade')->middleware('auth:aluno');
+        Route::post('/retorno/editar/{id}', 'AlunoController@editarRetornoAtividade')->middleware('auth:aluno');
+    });
+    
+});
+
 
 Route::get('/prof/consulta', 'ProfController@consultaProf')->middleware('auth:admin');
 Route::post('/prof', 'ProfController@novoProf')->middleware('auth:admin');
