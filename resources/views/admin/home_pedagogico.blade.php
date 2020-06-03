@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <h5>Atividades</h5>
                     <p class="card-text">
-                        Consultar e cadastrar Atividades
+                        Gerenciar as Atividades
                     </p>
                     <a href="/admin/atividade" class="btn btn-primary">Atividades</a>
                 </div>
@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <h5>Ocorrências</h5>
                     <p class="card-text">
-                        Consultar ocorrências
+                        Consultar as Ocorrências
                     </p>
                     <a href="/admin/ocorrencias" class="btn btn-primary">Ocorrências</a>
                 </div>

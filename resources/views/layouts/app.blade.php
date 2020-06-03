@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <title>E-ducAção</title>
-    <link rel="shortcut icon" href="/storage/logos/favicon.ico"/>
+    <link rel="shortcut icon" href="/storage/logos/favicon.png"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->

@@ -6,18 +6,18 @@
         <div class="card-deck">
             <div class="card border border-primary">
                 <div class="card-body">
-                    <h5>Lista de Atividades</h5>
+                    <h5>Atividades</h5>
                     <p class="card-text">
-                        Anexar e baixar os arquivos de Listas de Atividades
+                        Gerenciar as Atividades
                     </p>
-                    <a href="/prof/listaAtividade" class="btn btn-primary">Lista Atividades</a>
+                    <a href="/prof/disciplinasAtividades" class="btn btn-primary">Atividades</a>
                 </div>
             </div>
             <div class="card border border-primary">
                 <div class="card-body">
                     <h5>Ocorrências</h5>
                     <p class="card-text">
-                        Anexar e baixar os arquivos de Atividades
+                        Lançar as Ocorrências
                     </p>
                     <a href="/prof/ocorrencias" class="btn btn-primary">Ocorrências</a>
                 </div>
@@ -28,7 +28,7 @@
                     <p class="card-text">
                         Anexar e baixar os conteúdos
                     </p>
-                    <a href="/prof/conteudos/{{date("Y")}}" class="btn btn-primary">Atividades</a>
+                    <a href="/prof/conteudos/{{date("Y")}}" class="btn btn-primary">Conteúdos</a>
                 </div>
             </div>
         </div>

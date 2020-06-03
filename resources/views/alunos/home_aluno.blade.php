@@ -13,6 +13,15 @@
                     <a href="/aluno/atividade/disciplinas" class="btn btn-primary">Atividades</a>
                 </div>
             </div>
+            <div class="card border border-primary">
+                <div class="card-body">
+                    <h5>Conteúdos</h5>
+                    <p class="card-text">
+                        Baixar os Conteúdos
+                    </p>
+                    <a href="/aluno/conteudos/{{date("Y")}}" class="btn btn-primary">Conteúdos</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

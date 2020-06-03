@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>E-ducAção</title>
-        <link rel="shortcut icon" href="/storage/logos/favicon.ico"/>
+        <link rel="shortcut icon" href="/storage/logos/favicon.png"/>
         
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -83,12 +83,12 @@
                                     <!--@if (Route::has('register'))
                                         <a href="{{ route('register') }}">Cadastre-se</a>
                                     @endif-->
-                                        FAÇA LOGIN COMO
-                                        <a href="{{ route('aluno.login') }}">ALUNO</a>
-                                        <a href="{{ route('prof.login') }}">PROFESSOR</a>
-                                        <a href="{{ route('outro.login') }}">COLABORADOR</a>
-                                        <!--<a href="{{ route('login') }}">USUÁRIO</a>-->
-                                        <a href="{{ route('admin.login') }}">ADMIN</a>
+                                        <h4>FAÇA LOGIN COMO</h4>
+                                        <h4><a href="{{ route('aluno.login') }}" class="badge badge-dark">ALUNO</a>
+                                        <a href="{{ route('prof.login') }}" class="badge badge-dark">PROFESSOR</a>
+                                        <a href="{{ route('outro.login') }}" class="badge badge-dark">COLABORADOR</a>
+                                        <!--<a href="{{ route('login') }}" class="badge badge-dark">USUÁRIO</a>-->
+                                        <a href="{{ route('admin.login') }}" class="badge badge-dark">ADMIN</a></h4>
                                 @endauth
                             @endauth
                         @endauth
@@ -97,7 +97,8 @@
             @endif
 
             <div class="content">
-                <h2>Seja Bem-vindo! Ao intranet (externo) do</h2>
+                <h2>Seja Bem-vindo! Ao Sistema</h2>
+                <br/>
                 <div class="title m-b-md">
                     <img src="/storage/logos/logo.svg" alt="logo_escola" width="20%">
                 </div>

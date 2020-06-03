@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <h5>Disciplinas</h5>
                     <p class="card-text">
-                        Consultar e cadastrar Disciplinas
+                        Gerenciar as Disciplinas
                     </p>
                     <a href="/disciplinas" class="btn btn-primary">Disciplinas</a>
                 </div>
@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <h5>Turmas</h5>
                     <p class="card-text">
-                        Consultar e cadastrar Turmas
+                        Gerenciar as Turmas
                     </p>
                     <a href="/turmas" class="btn btn-primary">Turmas</a>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <h5>Turmas&Disciplinas</h5>
                     <p class="card-text">
-                        Consultar e cadastrar Disciplinas das Turmas
+                        Gerenciar as Disciplinas das Turmas
                     </p>
                     <a href="/turmasDiscs" class="btn btn-primary">Turmas&Disciplinas</a>
                 </div>
@@ -35,7 +35,7 @@
                 <div class="card-body">
                     <h5>Tipos de Ocorrências</h5>
                     <p class="card-text">
-                        Consultar e cadastrar Tipos de Ocorrências
+                        Gerenciar os Tipos de Ocorrências
                     </p>
                     <a href="/tiposOcorrencias" class="btn btn-primary">Tipos de Ocorrências</a>
                 </div>
@@ -49,7 +49,7 @@
                 <div class="card-body">
                     <h5>Alunos</h5>
                     <p class="card-text">
-                        Consultar e cadastrar Alunos
+                        Gerenciar os Alunos
                     </p>
                     <a href="/aluno/consulta" class="btn btn-primary">Alunos</a>
                 </div>
@@ -58,7 +58,7 @@
                 <div class="card-body">
                     <h5>Professores</h5>
                     <p class="card-text">
-                        Consultar e cadastrar Professores
+                        Gerenciar os Professores
                     </p>
                     <a href="/prof/consulta" class="btn btn-primary">Professores</a>
                 </div>
@@ -67,7 +67,7 @@
                 <div class="card-body">
                     <h5>Colaboradores</h5>
                     <p class="card-text">
-                        Consultar e cadastrar Colaboradores
+                        Gerenciar os Colaboradores
                     </p>
                     <a href="/outro/consulta" class="btn btn-primary">Colaboradores</a>
                 </div>
@@ -76,7 +76,7 @@
                 <div class="card-body">
                     <h5>Estoque</h5>
                     <p class="card-text">
-                        Consultar e cadastrar Estoque
+                        Gerenciar o Estoque
                     </p>
                     <a href="/admin/estoque" class="btn btn-primary">Estoque</a>
                 </div>

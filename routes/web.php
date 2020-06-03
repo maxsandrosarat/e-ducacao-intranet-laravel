@@ -77,7 +77,14 @@ Route::group(['prefix' => 'aluno'], function() {
         Route::post('/retorno/{id}', 'AlunoController@retornoAtividade')->middleware('auth:aluno');
         Route::post('/retorno/editar/{id}', 'AlunoController@editarRetornoAtividade')->middleware('auth:aluno');
     });
+
     
+    Route::group(['prefix' => 'conteudos'], function() {
+        Route::get('/{a}', 'AlunoController@painelConteudos')->middleware('auth:aluno');
+        Route::get('/painel/{a}/{b}/{t}', 'AlunoController@conteudos')->middleware('auth:aluno');
+        Route::get('/download/{id}', 'AlunoController@downloadConteudo')->middleware('auth:aluno');
+    });
+
 });
 
 
