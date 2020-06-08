@@ -8,9 +8,9 @@ use App\Atividade;
 use App\AtividadeRetorno;
 use App\Conteudo;
 use App\Disciplina;
-use App\Prof;
 use App\ProfDisciplina;
 use Excel;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -105,9 +105,14 @@ class AlunoController extends Controller
         $aluno->email = $request->input('email');
         $aluno->password = Hash::make($request->input('password'));
         $aluno->turma_id = $request->input('turma');
+        $pasta="fotos_alunos";
         if($request->file('foto')!=""){
-        $path = $request->file('foto')->store('fotos_perfil','public');
-        $aluno->foto = $path;
+            $file = $request->file('foto');
+            $random_name = Str::random(40);
+            $extension = $file->getClientOriginalExtension();
+            $filename = $pasta.'/'.$random_name.'.'.$extension;
+            $upload = $file->move(public_path("$pasta"), $filename);
+            $aluno->foto = $filename;
         }
         $aluno->turma_id = $request->input('turma');
         $aluno->save();
@@ -146,10 +151,14 @@ class AlunoController extends Controller
             $aluno->password = Hash::make($request->input('password'));
             }
             $aluno->turma_id = $request->input('turma');
+            $pasta="fotos_alunos";
             if($request->file('foto')!=""){
-                Storage::disk('public')->delete($aluno->foto);
-                $path = $request->file('foto')->store('fotos_perfil','public');
-                $aluno->foto = $path;
+                $file = $request->file('foto');
+                $random_name = Str::random(40);
+                $extension = $file->getClientOriginalExtension();
+                $filename = $pasta.'/'.$random_name.'.'.$extension;
+                $upload = $file->move(public_path("$pasta"), $filename);
+                $aluno->foto = $filename;
             }
             $aluno->save();
         }

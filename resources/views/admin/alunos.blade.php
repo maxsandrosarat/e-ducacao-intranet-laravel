@@ -60,7 +60,7 @@
                     @foreach ($alunos as $aluno)
                     <tr>
                         <td>{{$aluno->id}}</td>
-                        <td width="120">@if($aluno->foto!="")<img style="border-radius: 20px; margin:0px; padding:0px;" src="/storage/{{$aluno->foto}}" alt="foto_perfil" width="50%">@endif</td>
+                        <td width="120">@if($aluno->foto!="")<img style="border-radius: 20px; margin:0px; padding:0px;" src="/{{$aluno->foto}}" alt="foto_aluno" width="50%">@endif</td>
                         <td>{{$aluno->name}}</td>
                         <td>{{$aluno->email}}</td>
                         <td>{{$aluno->turma->serie}}º ANO {{$aluno->turma->turma}} (@if($aluno->turma->turno=='M') Matutino @else @if($aluno->turma->turno=='V') Vespertino @else Noturno @endif @endif)</td>
