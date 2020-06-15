@@ -105,16 +105,10 @@ class AlunoController extends Controller
         $aluno->email = $request->input('email');
         $aluno->password = Hash::make($request->input('password'));
         $aluno->turma_id = $request->input('turma');
-        $pasta="fotos_alunos";
         if($request->file('foto')!=""){
-            $file = $request->file('foto');
-            $random_name = Str::random(40);
-            $extension = $file->getClientOriginalExtension();
-            $filename = $pasta.'/'.$random_name.'.'.$extension;
-            $upload = $file->move(public_path("$pasta"), $filename);
-            $aluno->foto = $filename;
+			$path = $request->file('foto')->store('fotos_perfil','public');
+			$aluno->foto = $path;
         }
-        $aluno->turma_id = $request->input('turma');
         $aluno->save();
         return redirect('/aluno/consulta');
     }
@@ -151,14 +145,10 @@ class AlunoController extends Controller
             $aluno->password = Hash::make($request->input('password'));
             }
             $aluno->turma_id = $request->input('turma');
-            $pasta="fotos_alunos";
             if($request->file('foto')!=""){
-                $file = $request->file('foto');
-                $random_name = Str::random(40);
-                $extension = $file->getClientOriginalExtension();
-                $filename = $pasta.'/'.$random_name.'.'.$extension;
-                $upload = $file->move(public_path("$pasta"), $filename);
-                $aluno->foto = $filename;
+                Storage::disk('public')->delete($aluno->foto);
+                $path = $request->file('foto')->store('fotos_perfil','public');
+                $aluno->foto = $path;
             }
             $aluno->save();
         }
