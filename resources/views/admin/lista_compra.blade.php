@@ -1,4 +1,4 @@
-@extends('layouts.app', ["current"=>"administrativo"])
+@extends('layouts.app', ["current"=>"estoque"])
 
 @section('body')
     <div class="card border">
@@ -9,6 +9,7 @@
                     Sem produtos cadastrados!
                 </div>
             @else
+            <div class="table-responsive-xl">
             <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                     <tr>
@@ -29,6 +30,7 @@
                         @endforeach
                     </tbody>
             </table>
+            </div>
             <button type="submit" class="btn btn-primary btn-sn">Salvar</button>
             </form>
             @endif

@@ -1,4 +1,4 @@
-@extends('layouts.app', ["current"=>"administrativo"])
+@extends('layouts.app', ["current"=>"estoque"])
 
 @section('body')
     <div class="card border">

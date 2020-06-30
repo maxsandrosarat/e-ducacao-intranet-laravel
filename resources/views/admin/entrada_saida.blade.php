@@ -1,4 +1,4 @@
-@extends('layouts.app', ["current"=>"administrativo"])
+@extends('layouts.app', ["current"=>"estoque"])
 
 @section('body')
     <div class="card border">
@@ -30,7 +30,7 @@
                             <label for="saida">Saída</label>
                             <br><br>
                             <label for="produtos">Produto</label>
-                            <select id="produtos" name="produto" required>
+                            <select class="custom-select" id="produtos" name="produto" required>
                                 <option value="">Selecione</option>
                                 @foreach ($prods as $prod)
                                     <option value="{{$prod->id}}">{{$prod->nome}}</option>
@@ -67,13 +67,11 @@
             <h5>Filtros: </h5>
             <form class="form-inline my-2 my-lg-0" method="GET" action="/entradaSaida/filtro_entradaSaida">
                 @csrf
-                <label for="tipo">Tipo</label>
-                <select id="tipo" name="tipo">
+                <select class="custom-select" id="tipo" name="tipo">
                     <option value="">Selecione o tipo</option>
                     <option value="entrada">Entrada</option>
                     <option value="saida">Saída</option>
                 </select>
-                <label for="produto">Produto</label>
                 <input class="form-control mr-sm-2" type="text" for="produto" placeholder="Código do Produto" name="produto">
                 <label for="dataInicio">Data Início</label>
                 <input class="form-control mr-sm-2" type="date" name="dataInicio">
@@ -82,6 +80,7 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filtrar</button>
             </form>
             </div>
+            <div class="table-responsive-xl">
             <table id="yesprint" class="table table-striped table-ordered table-hover">
                 <thead class="thead-dark">
                     <tr>
@@ -110,6 +109,7 @@
                     @endforeach
                 </tbody>
             </table>
+            </div>
             @endif
         </div>
         <div class="card-footer">

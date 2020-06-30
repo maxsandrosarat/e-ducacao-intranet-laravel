@@ -27,7 +27,7 @@
                                 <input type="text" class="form-control" name="descricao" id="descricao" placeholder="Digite a Descricao da Ocorrência" required>
                                 <br/>
                                 <label for="tipo">Tipo</label>
-                                    <select id="tipo" name="tipo" required>
+                                    <select class="custom-select" id="tipo" name="tipo" required>
                                         <option value="">Selecione o tipo</option>
                                             <option value="despontuacao">Despontuação</option>
                                             <option value="elogio">Elogio</option>
@@ -49,6 +49,7 @@
                     Sem tipos cadastrados!
                 </div>
             @else
+            <div class="table-responsive-xl">
             <table class="table table-striped table-ordered table-hover">
                 <thead class="thead-dark">
                     <tr>
@@ -89,7 +90,7 @@
                                                 <label for="descricao">Descrição</label>
                                                 <input type="text" class="form-control" name="descricao" id="descricao" value="{{$tipo->descricao}}" required>
                                                 <label for="tipo">Tipo</label>
-                                                    <select id="tipo" name="tipo" required>
+                                                    <select class="custom-select" id="tipo" name="tipo" required>
                                                         <option value="{{$tipo->tipo}}">Selecione o tipo</option>
                                                             <option value="despontuacao">Despontuação</option>
                                                             <option value="elogio">Elogio</option>
@@ -111,6 +112,7 @@
                     @endforeach
                 </tbody>
             </table>
+            </div>
             @endif
         </div>
 

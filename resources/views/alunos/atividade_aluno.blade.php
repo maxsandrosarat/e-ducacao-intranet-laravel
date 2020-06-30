@@ -16,6 +16,7 @@
                 </div>
             @endif
             <h5>Exibindo {{$atividades->count()}} de {{$atividades->total()}} de Atividades ({{$atividades->firstItem()}} a {{$atividades->lastItem()}})</h5>
+            <div class="table-responsive-xl">
             <table class="table table-striped table-ordered table-hover" style="text-align: center;">
                 <thead class="thead-dark">
                     <tr>
@@ -33,7 +34,7 @@
                                     {{$atividade->descricao}}
                                 </div>
                                 <div class="card-body">
-                                  <p class="card-text">Visualizações: {{$atividade->visualizacoes}} | Data Criação: {{date("d/m/Y", strtotime($atividade->data_criacao))}} @if($atividade->data_publicacao!="") | Data Publicação: {{date("d/m/Y", strtotime($atividade->data_publicacao))}} @endif @if($atividade->data_expiracao!="") | <b style="color:red;">Data Expiração: {{date("d/m/Y", strtotime($atividade->data_expiracao))}}</b> @endif</p>
+                                  <p class="card-text">Visualizações: {{$atividade->visualizacoes}} | Data Criação: {{date("d/m/Y H:i", strtotime($atividade->created_at))}} @if($atividade->data_publicacao!="") | Data Publicação: {{date("d/m/Y H:i", strtotime($atividade->data_publicacao))}} @endif @if($atividade->data_expiracao!="") | <b style="color:red;">Data Expiração: {{date("d/m/Y H:i", strtotime($atividade->data_expiracao))}}</b> @endif</p>
                                   @if($atividade->link!="")<a href="{{$atividade->link}}" target="_blank" class="btn btn-primary">Link Vídeo-Aula</a>@endif
                                   <a type="button" class="btn btn-success" href="/aluno/atividade/download/{{$atividade->id}}"><i class="material-icons md-48">cloud_download</i></a>
                                   @if($atividade->retorno=="sim")
@@ -73,11 +74,10 @@
                                     <div class="modal-body">
                                         <form method="POST" action="/aluno/atividade/retorno/{{$atividade->id}}" enctype="multipart/form-data">
                                             @csrf
-                                            <label for="comentario" class="col-md-4 col-form-label text-md-right">Comentário</label>
-                                            <textarea name="comentario" id="comentario" rows="10" cols="40" maxlength="500"></textarea> 
+                                            <label for="comentario">Comentário
+                                            <textarea class="form-control" name="comentario" id="comentario" rows="10" cols="40" maxlength="500"></textarea></label>
                                             <br/>
-                                            <input type="file" id="arquivo" name="arquivo" accept=".doc,.docx,.pdf" required>
-                                            <br/>
+                                            <input class="form-control-file" type="file" id="arquivo" name="arquivo" accept=".doc,.docx,.pdf" required>
                                             <b style="font-size: 80%;">Aceito apenas extensões do Word e PDF (".doc", ".docx" e ".pdf")</b>
                                         </div>
                                         <div class="modal-footer">
@@ -106,10 +106,10 @@
                                     <div class="modal-body">
                                         <form method="POST" action="/aluno/atividade/retorno/editar/{{$retorno->id}}" enctype="multipart/form-data">
                                             @csrf
-                                            <label for="comentario" class="col-md-4 col-form-label text-md-right">Comentário</label>
-                                            <textarea name="comentario" id="comentario" rows="10" cols="40" maxlength="500">{{$retorno->comentario}}</textarea>
+                                            <label for="comentario">Comentário
+                                            <textarea class="form-control" name="comentario" id="comentario" rows="10" cols="40" maxlength="500">{{$retorno->comentario}}</textarea></label>
                                             <br/>
-                                            <input type="file" id="arquivo" name="arquivo" accept=".doc,.docx,.pdf" required>
+                                            <input class="form-control-file" type="file" id="arquivo" name="arquivo" accept=".doc,.docx,.pdf" required>
                                             <br/>
                                             <b style="font-size: 80%;">Aceito apenas extensões do Word e PDF (".doc", ".docx" e ".pdf")</b>
                                     </div>
@@ -131,6 +131,7 @@
                     @endforeach
                 </tbody>
             </table>
+            </div>
             <div class="card-footer">
                 {{$atividades->links() }}
             </div>

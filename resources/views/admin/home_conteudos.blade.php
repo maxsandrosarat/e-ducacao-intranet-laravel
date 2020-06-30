@@ -3,18 +3,25 @@
 @section('body')
     <div class="card border">
         <div class="card-body">
+            @if(session('mensagem'))
+                <div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    <p>{{session('mensagem')}}</p>
+                </div>
+            @endif
             <form action="/admin/conteudos" method="GET">
                 @csrf
-                <label for="ano">Selecione o ano: </label>
-                <select id="ano" name="ano">
-                    <option value="">Selecione</option>
+                <label for="ano">Selecione o ano: 
+                <select class="custom-select" id="ano" name="ano">
+                    <option value="">Selecionar ano</option>
                     @foreach ($anos as $an)
                     <option value="{{$an->ano}}">{{$an->ano}}</option>
                     @endforeach
-                  </select>
+                  </select></label>
                 <input type="submit" class="btn btn-primary" value="Selecionar">
             </form>
             <h5 class="card-title">Conteúdos pelos Professores - {{$ano}}</h5>
+            <div class="table-responsive-xl">
             <table class="table table-striped table-ordered table-hover">
                 <thead class="thead-dark">
                     <tr style="text-align: center;">
@@ -51,18 +58,14 @@
                     </tr>
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
-    <br>
-    @if(session('mensagem'))
-        <div class="alert alert-success" role="alert">
-            <p>{{session('mensagem')}}</p>
-        </div>
-    @endif
+    <br/>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Gerar Conteúdos
-    </button>
+    <a type="button" class="float-button" data-toggle="modal" data-target="#exampleModal" data-toggle="tooltip" data-placement="bottom" title="Gerar Conteúdos">
+        <i class="material-icons blue md-60">add_circle</i>
+    </a>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -79,9 +82,9 @@
             @csrf
             <div class="form-group">
                 <label for="ano">Ano: </label>
-                <input type="number" name="ano" id="ano" required>
+                <input class="form-control" type="number" name="ano" id="ano" size="4"  required>
                 <label for="bimestre">Bimestre: </label>
-                <select id="bimestre" name="bimestre" required>
+                <select class="custom-select" id="bimestre" name="bimestre" required>
                     <option value="">Selecione</option>
                     <option value="1">1º</option>
                     <option value="2">2º</option>

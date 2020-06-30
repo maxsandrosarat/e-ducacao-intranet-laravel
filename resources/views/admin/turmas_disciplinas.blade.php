@@ -12,12 +12,12 @@
                     Sem disciplinas para as turmas cadastradas!
                 </div>
             @else
+            <div class="table-responsive-xl">
             <table class="table table-striped table-ordered table-hover">
                 <thead class="thead-dark">
                     <tr>
                         <th>Turma</th>
                         <th>Disciplina</th>
-                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,11 +32,11 @@
                             @endforeach
                             </ul>
                         </td>
-                        <td></td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
+            </div>
             @endif
         </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

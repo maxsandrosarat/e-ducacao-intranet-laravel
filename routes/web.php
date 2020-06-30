@@ -41,6 +41,8 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/', 'AdminController@indexOcorrencias');
         Route::get('/apagar/{id}', 'AdminController@apagarOcorrencia');
         Route::get('/filtro', 'AdminController@filtroOcorrencias');
+        Route::get('/aprovar/{id}', 'AdminController@aprovarOcorrencia');
+        Route::get('/reprovar/{id}', 'AdminController@reprovarOcorrencia');
     });
 
     
@@ -54,6 +56,30 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/apagar/{id}', 'AdminController@apagar_conteudo');
     });
 
+    Route::group(['prefix' => 'recados'], function() {
+        Route::get('/', 'AdminController@indexRecados');
+        Route::post('/', 'AdminController@novoRecado');
+        Route::get('/filtro', 'AdminController@filtroRecados');
+        Route::post('/editar/{id}', 'AdminController@editarRecado');
+        Route::get('/apagar/{id}', 'AdminController@apagarRecado');
+    });
+
+});
+
+Route::group(['prefix' => 'responsavel'], function() {
+    Route::get('/login', 'Auth\ResponsavelLoginController@index')->name('responsavel.login');
+    Route::post('/login', 'Auth\ResponsavelLoginController@login')->name('responsavel.login.submit');
+    Route::get('/', 'ResponsavelController@index')->name('responsavel.dashboard')->middleware('auth:responsavel');
+    Route::get('/consulta', 'ResponsavelController@consulta')->middleware('auth:admin');
+    Route::post('/', 'ResponsavelController@novo')->middleware('auth:admin');
+    Route::get('/filtro', 'ResponsavelController@filtro')->middleware('auth:admin');
+    Route::post('/editar/{id}', 'ResponsavelController@editar')->middleware('auth:admin');
+    Route::get('/apagar/{id}', 'ResponsavelController@apagar')->middleware('auth:admin');
+    Route::post('/vincular/{id}', 'ResponsavelController@vincular')->middleware('auth:admin');
+    Route::get('desvincular/{r}/{a}', 'ResponsavelController@desvincular')->middleware('auth:admin');
+    Route::get('/ocorrencias', 'ResponsavelController@ocorrencias')->middleware('auth:responsavel');
+    Route::get('/ocorrencias/ciente/{id}', 'ResponsavelController@cienteOcorrencia')->middleware('auth:responsavel');
+    Route::get('/recados', 'ResponsavelController@recados')->middleware('auth:responsavel');
 });
 
 

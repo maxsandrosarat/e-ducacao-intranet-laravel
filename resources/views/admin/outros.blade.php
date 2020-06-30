@@ -38,6 +38,7 @@
             </form>
             </div>
             <h5>Exibindo {{$outros->count()}} de {{$outros->total()}} de Usuários ({{$outros->firstItem()}} a {{$outros->lastItem()}})</h5>
+            <div class="table-responsive-xl">
             <table class="table table-striped table-ordered table-hover">
                 <thead class="thead-dark">
                     <tr>
@@ -143,6 +144,7 @@
                     @endforeach
                 </tbody>
             </table>
+            </div>
             <div class="card-footer">
                 {{$outros->links() }}
             </div>

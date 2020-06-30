@@ -1,4 +1,4 @@
-@extends('layouts.app', ["current"=>"administrativo"])
+@extends('layouts.app', ["current"=>"estoque"])
 
 @section('body')
     <div class="card border">
@@ -67,6 +67,7 @@
                 </form>
                 </div>
             <h5>Exibindo {{$prods->count()}} de {{$prods->total()}} de Produtos ({{$prods->firstItem()}} a {{$prods->lastItem()}})</h5>
+            <div class="table-responsive-xl">
             <table class="table table-striped table-ordered table-hover">
                 <thead class="thead-dark">
                     <tr>
@@ -134,6 +135,7 @@
             </table>
             <div class="card-footer">
                 {{ $prods->links() }}
+            </div>
             </div>
             @endif
         </div>

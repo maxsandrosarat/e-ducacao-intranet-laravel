@@ -34,7 +34,7 @@
             <form class="form-inline my-2 my-lg-0" method="GET" action="/aluno/filtro">
                 @csrf
                 <input class="form-control mr-sm-2" type="text" placeholder="Nome do Aluno" name="nome">
-                <select id="turma" name="turma">
+                <select class="custom-select" id="turma" name="turma">
                     <option value="">Selecione uma turma</option>
                     @foreach ($turmas as $turma)
                         <option value="{{$turma->id}}">{{$turma->serie}}º ANO {{$turma->turma}} (@if($turma->turno=='M') Matutino @else @if($turma->turno=='V') Vespertino @else Noturno @endif @endif)</option>
@@ -45,6 +45,7 @@
             </div>
             <br>
             <h5>Exibindo {{$alunos->count()}} de {{$alunos->total()}} de Aluno(s) ({{$alunos->firstItem()}} a {{$alunos->lastItem()}})</h5>
+            <div class="table-responsive-xl">
             <table class="table table-striped table-ordered table-hover">
                 <thead class="thead-dark">
                     <tr>
@@ -135,12 +136,15 @@
                         
                                                 <div class="form-group row">
                                                     <label for="turma" class="col-md-4 col-form-label text-md-right">{{ __('Turma') }}</label>
-                        
+                    
                                                     <div>
-                                                        <select id="turma" name="turma" required>
-                                                            <option value="{{$aluno->turma->id}}">Selecione</option>
+                                                        <select class="custom-select" id="turma" name="turma" required>
+                                                            <option value="{{$aluno->turma->id}}">{{$aluno->turma->serie}}º ANO {{$aluno->turma->turma}}</option>
                                                             @foreach ($turmas as $turma)
+                                                                @if($turma->id==$aluno->turma->id)
+                                                                @else
                                                                 <option value="{{$turma->id}}">{{$turma->serie}}º ANO {{$turma->turma}} (@if($turma->turno=='M') Matutino @else @if($turma->turno=='V') Vespertino @else Noturno @endif @endif)</option>
+                                                                @endif
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -175,6 +179,7 @@
                     @endforeach
                 </tbody>
             </table>
+            </div>
             <div class="card-footer">
                 {{$alunos->links() }}
             </div>
@@ -283,7 +288,7 @@
                             <label for="turma">{{ __('Turma') }}</label>
 
                             <div>
-                                <select id="turma" name="turma" required>
+                                <select class="custom-select" id="turma" name="turma" required>
                                     <option value="">Selecione</option>
                                     @foreach ($turmas as $turma)
                                         <option value="{{$turma->id}}">{{$turma->serie}}º ANO {{$turma->turma}} (@if($turma->turno=='M') Matutino @else @if($turma->turno=='V') Vespertino @else Noturno @endif @endif)</option>

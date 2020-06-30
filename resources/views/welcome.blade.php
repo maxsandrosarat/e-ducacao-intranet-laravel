@@ -84,7 +84,8 @@
                                         <a href="{{ route('register') }}">Cadastre-se</a>
                                     @endif-->
                                         <h4>FAÇA LOGIN COMO</h4>
-                                        <h4><a href="{{ route('aluno.login') }}" class="badge badge-dark">ALUNO</a>
+                                        <h4><a href="{{ route('responsavel.login') }}" class="badge badge-dark">RESPONSÁVEL</a>
+                                        <a href="{{ route('aluno.login') }}" class="badge badge-dark">ALUNO</a>
                                         <a href="{{ route('prof.login') }}" class="badge badge-dark">PROFESSOR</a>
                                         <a href="{{ route('outro.login') }}" class="badge badge-dark">COLABORADOR</a>
                                         <!--<a href="{{ route('login') }}" class="badge badge-dark">USUÁRIO</a>-->
@@ -97,7 +98,7 @@
             @endif
 
             <div class="content">
-                <h2>Seja Bem-vindo! Ao Sistema</h2>
+                <h3>Seja Bem-vindo! Ao Sistema</h3>
                 <br/>
                 <div class="title m-b-md">
                     <img src="/storage/logos/logo.svg" alt="logo_escola" width="20%">
@@ -114,7 +115,7 @@
                             @auth("prof")
                                 <b> <h3>Você está logado como  {{Auth::guard('prof')->user()->name}}  !</h3>
                             @else
-                                <h3>Você não está logado! Por gentileza faça login!</h3>
+                                <h3>Você não está logado! <br/> Por gentileza faça login!</h3>
                             @endauth
                         @endauth
                     @endauth

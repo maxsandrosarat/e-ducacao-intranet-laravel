@@ -3,7 +3,14 @@
 @section('body')
     <div class="card border">
         <div class="card-body">
+            @if(session('mensagem'))
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <p>{{session('mensagem')}}</p>
+            </div>
+            @endif
             <h5 class="card-title">Conteúdos pelos Professores - {{$ano}}</h5>
+            <div class="table-responsive-xl">
             <table class="table table-striped table-ordered table-hover">
                 <thead class="thead-dark">
                     <tr style="text-align: center;">
@@ -40,13 +47,9 @@
                     </tr>
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
-    <br>
-    @if(session('mensagem'))
-        <div class="alert alert-success" role="alert">
-            <p>{{session('mensagem')}}</p>
-        </div>
-    @endif
+    <br/>
     <a href="/aluno" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Voltar"><i class="material-icons white">reply</i></a>
 @endsection

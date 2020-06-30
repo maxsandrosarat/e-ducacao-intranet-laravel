@@ -49,6 +49,7 @@
                 </div>
             </div>
             <br/>
+            <div class="table-responsive-xl">
             <table class="table table-striped table-ordered table-hover" style="text-align: center;">
                 <thead class="thead-dark">
                     <tr>
@@ -59,7 +60,7 @@
                         <th>Professor</th>
                         <th>Data</th>
                         <th>Observação</th>
-                        <th>Ações</th>
+                        <th>Aprovação</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -75,7 +76,7 @@
                             @if($ocorrencia->observacao=="")
                             <h6 style="color: red;">Sem observação</h6>
                             @else
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalOb{{$ocorrencia->id}}">
+                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModalOb{{$ocorrencia->id}}">
                                 Ver Observação
                             </button>
                             @endif
@@ -96,12 +97,22 @@
                             </div>
                         </td>
                         <td>
-                            <a href="/admin/ocorrencias/apagar/{{$ocorrencia->id}}" class="btn btn-sm btn-danger">Apagar</a>
+                            @if($ocorrencia->aprovado==1)
+                                <b><p style="color: green; font-size: 50%;"><i class="material-icons green">check_circle</i> APROVADO</p></b>
+                            @else
+                                @if($ocorrencia->aprovado!==NULL)
+                                    <b><p style="color: red; font-size: 50%;"><i class="material-icons green">highlight_off</i>REPROVADO</p></b>
+                                @else
+                                    <a href="/admin/ocorrencias/aprovar/{{$ocorrencia->id}}" class="btn btn-sm btn-success">Aprovar</a>
+                                    <a href="/admin/ocorrencias/reprovar/{{$ocorrencia->id}}" class="btn btn-sm btn-danger">Reprovar</a>
+                                @endif
+                            @endif
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
+            </div>
             <div class="card-footer">
                 {{$ocorrencias->links() }}
             </div>

@@ -17,7 +17,7 @@
             <form class="form-inline my-2 my-lg-0" method="GET" action="/prof/filtro">
                 @csrf
                 <input class="form-control mr-sm-2" type="text" placeholder="Nome do Professor" name="nome">
-                <select id="disciplina" name="disciplina">
+                <select class="custom-select" id="disciplina" name="disciplina">
                     <option value="">Selecione uma disciplina</option>
                     @foreach ($discs as $disc)
                         <option value="{{$disc->id}}">{{$disc->nome}} (@if($disc->ensino=="fund") Fundamental @else Médio @endif)</option>
@@ -28,6 +28,7 @@
             </div>
             <br>
             <h5>Exibindo {{$profs->count()}} de {{$profs->total()}} de Professor(es) ({{$profs->firstItem()}} a {{$profs->lastItem()}})</h5>
+            <div class="table-responsive-xl">
             <table class="table table-striped table-ordered table-hover">
                 <thead class="thead-dark">
                     <tr>
@@ -153,6 +154,7 @@
                     @endforeach
                 </tbody>
             </table>
+            </div>
             <div class="card-footer">
                 {{$profs->links() }}
             </div>

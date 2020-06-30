@@ -1,19 +1,19 @@
-@extends('layouts.app', ["current"=>"administrativo"])
+@extends('layouts.app', ["current"=>"estoque"])
 
 @section('body')
 <div class="jumbotron bg-light border border-secondary">
     <div class="row">
         <div class="card-deck">
-            <div class="card border border-primary">
+            <div class="card border border-primary mb-3" style="width: 20rem;">
                 <div class="card-body">
-                    <h5>Relatório de Entrada/Saída</h5>
+                    <h5>Entradas e Saídas</h5>
                     <p class="card-text">
-                        Veja suas entradas e saídas até o momento
+                        Veja e faça suas entradas e saídas até o momento
                     </p>
                     <a href="/entradaSaida" class="btn btn-primary">Relatório</a>
                 </div>
             </div>
-            <div class="card border border-primary">
+            <div class="card border border-primary mb-3" style="width: 20rem;">
                 <div class="card-body">
                     <h5>Lista de Compras</h5>
                     <p class="card-text">
@@ -27,7 +27,7 @@
     <br/>
     <div class="row">
         <div class="card-deck">
-            <div class="card border border-primary">
+            <div class="card border border-primary mb-3" style="width: 20rem;">
                 <div class="card-body">
                     <h5>Produtos</h5>
                     <p class="card-text">
@@ -36,7 +36,7 @@
                     <a href="/produtos" class="btn btn-primary">Produtos</a>
                 </div>
             </div>
-            <div class="card border border-primary">
+            <div class="card border border-primary mb-3" style="width: 20rem;">
                 <div class="card-body">
                     <h5>Categorias</h5>
                     <p class="card-text">

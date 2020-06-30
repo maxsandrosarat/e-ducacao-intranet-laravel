@@ -28,6 +28,12 @@ class RedirectIfAuthenticated
             if($guard=='prof'){
                 return redirect()->route('prof.dashboard');
             }
+            if($guard=='outro'){
+                return redirect()->route('outro.dashboard');
+            }
+            if($guard=='responsavel'){
+                return redirect()->route('responsavel.dashboard');
+            }
             return redirect(RouteServiceProvider::HOME);
         }
 

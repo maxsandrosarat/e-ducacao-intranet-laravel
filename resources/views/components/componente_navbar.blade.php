@@ -2,7 +2,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <img src="/storage/logos/navbar.svg" alt="logo_escola" width="8%">
+    <img src="/storage/logos/navbar.svg" alt="logo_escola" width="80" class="d-inline-block align-top">
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <ul class="navbar-nav mr-auto">
             <li @if($current=="home") class="nav-item active" @else class="nav-item" @endif>
@@ -13,11 +13,30 @@
             <li @if($current=="home") class="nav-item active" @else class="nav-item" @endif>
                 <a class="nav-link" href="/admin">Home</a>
             </li>
+            <li @if($current=="estoque") class="nav-item active" @else class="nav-item" @endif>
+                <a class="nav-link" href="/admin/estoque">Estoque</a>
+            </li>
             <li @if($current=="administrativo") class="nav-item active" @else class="nav-item" @endif>
                 <a class="nav-link" href="/admin/administrativo">Administrativo</a>
             </li>
             <li @if($current=="pedagogico") class="nav-item active" @else class="nav-item" @endif>
                 <a class="nav-link" href="/admin/pedagogico">Pedagógico</a>
+            </li>
+            @endauth
+
+            <!--RESPONSAVEL-->
+            @auth("responsavel")
+            <li @if($current=="home") class="nav-item active" @else class="nav-item" @endif>
+                <a class="nav-link" href="/responsavel">Home</a>
+            </li>
+            <!--<li @if($current=="diario") class="nav-item active" @else class="nav-item" @endif>
+                <a class="nav-link" href="/responsavel/diario">Diário</a>
+            </li>-->
+            <li @if($current=="ocorrencias") class="nav-item active" @else class="nav-item" @endif>
+                <a class="nav-link" href="/responsavel/ocorrencias">Ocorrências</a>
+            </li>
+            <li @if($current=="recados") class="nav-item active" @else class="nav-item" @endif>
+                <a class="nav-link" href="/responsavel/recados">Recados</a>
             </li>
             @endauth
 
@@ -72,6 +91,9 @@
             <!--<li class="nav-item">
                 //<a class="nav-link" href="{{ route('login') }}">{{ __('Login(Usuário)') }}</a>
             </li>-->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('responsavel.login') }}">{{ __('Login(Responsável)') }}</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('aluno.login') }}">{{ __('Login(Aluno)') }}</a>
             </li>

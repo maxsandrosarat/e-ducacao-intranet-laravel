@@ -39,7 +39,7 @@ class AlunoController extends Controller
     public function painelAtividades($disciplina){
         $alunoId = Auth::user()->id;
         $retornos = AtividadeRetorno::where('aluno_id',"$alunoId")->get();
-        $dataAtual = date("Y-m-d");
+        $dataAtual = date("Y-m-d H:i");
         $turmaId = Auth::user()->turma_id;
         $atividades = Atividade::where('turma_id',"$turmaId")->where('disciplina_id',"$disciplina")->where("data_publicacao",'<=',"$dataAtual")->where("data_expiracao",'>=',"$dataAtual")->orderBy('id','desc')->paginate(5);
         return view('alunos.atividade_aluno', compact('atividades','retornos'));

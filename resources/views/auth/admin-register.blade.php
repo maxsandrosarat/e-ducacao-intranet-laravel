@@ -72,4 +72,6 @@
         </div>
     </div>
 </div>
+<br/>
+<a href="/admin/administrativo" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Voltar"><i class="material-icons white">reply</i></a>
 @endsection

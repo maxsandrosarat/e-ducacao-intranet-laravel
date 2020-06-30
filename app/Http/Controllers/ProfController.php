@@ -13,6 +13,8 @@ use App\Turma;
 use App\TurmaDisciplina;
 use Illuminate\Http\Request;
 use App\Ocorrencia;
+use App\Responsavel;
+use App\ResponsavelAluno;
 use App\TipoOcorrencia;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +39,7 @@ class ProfController extends Controller
         $prof->email = $request->input('email');
         $prof->password = Hash::make($request->input('password'));
         $prof->save();
-        $profId = DB::table('profs')->max('id');
+        $profId = $prof->id;
         $disciplinas = $request->input('disciplinas');
                 foreach($disciplinas as $disciplina){
                     $profDisc = new ProfDisciplina();
@@ -144,12 +146,11 @@ class ProfController extends Controller
         $atividade->disciplina_id = $discId;
         $atividade->turma_id = $request->input('turma');
         $atividade->retorno = $request->input('retorno');
-        $atividade->data_criacao = date("Y/m/d");
         if($request->input('dataPublicacao')!=""){
-            $atividade->data_publicacao = $request->input('dataPublicacao');
+            $atividade->data_publicacao = $request->input('dataPublicacao').' '.$request->input('horaPublicacao');
         }
         if($request->input('dataExpiracao')!=""){
-            $atividade->data_expiracao = $request->input('dataExpiracao');
+            $atividade->data_expiracao = $request->input('dataExpiracao').' '.$request->input('horaExpiracao');
         }
         $atividade->descricao = $request->input('descricao');
         $atividade->link = $request->input('link');
@@ -174,11 +175,11 @@ class ProfController extends Controller
         if($request->input('turma')!=""){
             $atividade->turma_id = $request->input('turma');
         }
-        if($request->input('dataPublicacao')!=""){
-            $atividade->data_publicacao = $request->input('dataPublicacao');
+        if($request->input('dataPublicacao')!="" && $request->input('horaPublicacao')!=""){
+            $atividade->data_publicacao = $request->input('dataPublicacao').' '.$request->input('horaPublicacao');
         }
-        if($request->input('dataExpiracao')!=""){
-            $atividade->data_expiracao = $request->input('dataExpiracao');
+        if($request->input('dataExpiracao')!="" && $request->input('horaExpiracao')!=""){
+            $atividade->data_expiracao = $request->input('dataExpiracao').' '.$request->input('horaExpiracao');
         }
         if($request->input('descricao')!=""){
             $atividade->descricao = $request->input('descricao');
@@ -441,7 +442,8 @@ class ProfController extends Controller
         $tipos = TipoOcorrencia::all();
         $ocorrencias = Ocorrencia::where('prof_id',"$profId")->where('disciplina_id',"$disciplina")->paginate(10);
         $tipo = "painel";
-        return view('profs.ocorrencias_prof', compact('alunos','tipos','disciplina','ocorrencias','turma','tipo'));
+        $busca = "nao";
+        return view('profs.ocorrencias_prof', compact('alunos','tipos','disciplina','ocorrencias','turma','tipo','busca'));
     }
 
     public function painelConteudosAno(Request $request){

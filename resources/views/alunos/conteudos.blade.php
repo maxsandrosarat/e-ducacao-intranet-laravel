@@ -5,6 +5,7 @@
         @if($ensino=="fund")
         <div class="card-body">
             <h5 class="card-title">Painel de Conteúdos - Ensino Fundamental - {{$tipo}} - {{$bim}}º Bimestre</h5>
+            <div class="table-responsive-xl">
             <table class="table table-striped table-ordered table-hover" style="text-align: center;">
                 <thead class="thead-dark">
                     <tr>
@@ -25,11 +26,13 @@
                         @endforeach
                 </tbody>
             </table>
+            </div>
         </div>
         @endif
         @if($ensino=="medio")
         <div class="card-body">
             <h5 class="card-title">Painel de Conteúdos - Ensino Médio - {{$tipo}} - {{$bim}}º Bimestre</h5>
+            <div class="table-responsive-xl">
             <table class="table table-striped table-ordered table-hover" style="text-align: center;">
                 <thead class="thead-dark">
                     <tr>
@@ -52,6 +55,7 @@
                         @endforeach
                 </tbody>
             </table>
+            </div>
         </div>
         @endif
     </div>

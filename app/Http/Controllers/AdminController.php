@@ -11,6 +11,9 @@ use App\Aluno;
 use App\TipoOcorrencia;
 use App\Ocorrencia;
 use App\Conteudo;
+use App\Recado;
+use App\Responsavel;
+use App\ResponsavelAluno;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -424,4 +427,153 @@ class AdminController extends Controller
         $cont->save();
         return back();
     }
+
+    public function aprovarOcorrencia($id){
+        $ocorrencia = Ocorrencia::find($id);
+        $ocorrencia->aprovado = true;
+        $ocorrencia->save();
+        $resps = ResponsavelAluno::where('aluno_id',"$ocorrencia->aluno_id")->get();
+        //if(isset($resps)){
+            //foreach($resps as $resp){
+               // $responsavel = Responsavel::find($resp->responsavel_id);
+              //  $responsavel->ocorrencias += 1;
+               // $responsavel->save();
+           // }
+        //}
+
+        return back();
+    }
+
+    public function reprovarOcorrencia($id){
+        $ocorrencia = Ocorrencia::find($id);
+        $ocorrencia->aprovado = false;
+        $ocorrencia->save();
+
+        return back();
+    }
+
+    public function indexRecados(){
+        $recados = Recado::with(['turma', 'aluno'])->paginate(10);
+        $turmas = Turma::all();
+        $alunos = Aluno::orderBy('name')->get();
+        $busca = "nao";
+        return view('admin.recados_admin', compact('recados','turmas','alunos','busca'));
+    }
+
+    public function novoRecado(Request $request){
+        if($request->input('geral')!=""){
+            if($request->input('geral')==true){
+                $recado = new Recado();
+                $recado->titulo = $request->input('titulo');
+                $recado->descricao = $request->input('descricao');
+                $recado->geral = true;
+                $recado->save();
+                return back();
+            } else{
+                if($request->input('turma')!=""){
+                    $recado = new Recado();
+                    $recado->titulo = $request->input('titulo');
+                    $recado->descricao = $request->input('descricao');
+                    $recado->geral = false;
+                    $recado->turma_id = $request->input('turma');
+                    $recado->save();
+                    return back();
+                } else{
+                    $recado = new Recado();
+                    $recado->titulo = $request->input('titulo');
+                    $recado->descricao = $request->input('descricao');
+                    $recado->geral = false;
+                    $recado->aluno_id = $request->input('aluno');
+                    $recado->save();
+                    return back();
+                }
+            }
+        }
+        return back();
+    }
+
+    public function filtroRecados(Request $request)
+    {
+        $titulo = $request->input('titulo');
+        $dataInicio = $request->input('dataInicio');
+        $dataFim = $request->input('dataFim');
+        if(isset($titulo)){
+            if(isset($dataInicio)){
+                if(isset($dataFim)){
+                    $recados = Recado::where('titulo','like',"%$titulo%")->whereBetween('data',["$dataInicio", "$dataFim"])->paginate(100);
+                } else {
+                    $recados = Recado::where('titulo','like',"%$titulo%")->whereBetween('data',["$dataInicio", date("Y/m/d")])->paginate(100);
+                }
+            } else {
+                if(isset($dataFim)){
+                    $recados = Recado::where('titulo','like',"%$titulo%")->whereBetween('data',["", "$dataFim"])->paginate(100);
+                } else {
+                    $recados = Recado::where('titulo','like',"%$titulo%")->paginate(100);
+                }
+            }
+        } else {
+            if(isset($dataInicio)){
+                if(isset($dataFim)){
+                    $recados = Recado::whereBetween('data',["$dataInicio", "$dataFim"])->paginate(100);
+                } else {
+                    $recados = Recado::whereBetween('data',["$dataInicio", date("Y/m/d")])->paginate(100);
+                }
+            } else {
+                if(isset($dataFim)){
+                    $recados = Recado::whereBetween('data',["", "$dataFim"])->paginate(100);
+                } else {
+                    $recados = Recado::paginate(10);
+                }
+            }
+        }
+        $turmas = Turma::all();
+        $alunos = Aluno::orderBy('name')->get();
+        $busca = "sim";
+        return view('admin.recados_admin', compact('recados','turmas','alunos','busca'));
+    }
+
+    public function editarRecado(Request $request, $id)
+    {
+        $recado = Recado::find($id);
+        if($request->input('geral')!=""){
+            if($request->input('geral')==true){
+                $recado->titulo = $request->input('titulo');
+                $recado->descricao = $request->input('descricao');
+                $recado->geral = true;
+                $recado->turma_id = NULL;
+                $recado->aluno_id = NULL;
+                $recado->save();
+                return back();
+            } else{
+                if($request->input('turma')!=""){
+                    $recado->titulo = $request->input('titulo');
+                    $recado->descricao = $request->input('descricao');
+                    $recado->geral = false;
+                    $recado->turma_id = $request->input('turma');
+                    $recado->aluno_id = NULL;
+                    $recado->save();
+                    return back();
+                } else{
+                    $recado->titulo = $request->input('titulo');
+                    $recado->descricao = $request->input('descricao');
+                    $recado->geral = false;
+                    $recado->aluno_id = $request->input('aluno');
+                    $recado->turma_id = NULL;
+                    $recado->save();
+                    return back();
+                }
+            }
+        }
+        return back();
+    }
+
+    public function apagarRecado($id)
+    {
+        $recado = Recado::find($id);
+        if(isset($recado)){
+            $recado->delete();
+        }
+        return back();
+    }
+
 }
