@@ -112,12 +112,6 @@ class ResponsavelController extends Controller
         $ocorrencia = Ocorrencia::find($id);
         $ocorrencia->responsavel_ciente = true;
         $ocorrencia->save();
-        $resps = ResponsavelAluno::where('aluno_id',"$ocorrencia->aluno_id")->get();
-        foreach($resps as $resp){
-            $responsavel = Responsavel::find($resp->responsavel_id);
-            $responsavel->ocorrencias -= 1;
-            $responsavel->save();
-        }
         return back();
     }
 
@@ -131,7 +125,7 @@ class ResponsavelController extends Controller
             $alunoVer = Aluno::find($aluno->aluno_id);
             $turmasIds[] = $alunoVer->turma_id;
         }
-        $recados = Recado::orWhere('aluno_id', $alunosIds)->orWhere('turma_id', $turmasIds)->orWhere('geral',true)->orderBy('created_at', 'desc')->paginate(10);
+        $recados = Recado::orWhereIn('aluno_id', $alunosIds)->orWhereIn('turma_id', $turmasIds)->orWhere('geral',true)->orderBy('created_at', 'desc')->paginate(10);
         return view('responsavel.recados', compact('recados'));
     }
 }

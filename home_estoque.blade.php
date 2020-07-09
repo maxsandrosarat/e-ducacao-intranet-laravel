@@ -4,29 +4,6 @@
 <div class="jumbotron bg-light border border-secondary">
     <div class="row">
         <div class="card-deck">
-			<div class="card border border-primary mb-3" style="width: 20rem;">
-                <div class="card-body">
-                    <h5>Categorias</h5>
-                    <p class="card-text">
-                        Consulte e Cadastre suas categorias
-                    </p>
-                    <a href="/categorias" class="btn btn-primary">Categorias</a>
-                </div>
-            </div>
-			<div class="card border border-primary mb-3" style="width: 20rem;">
-                <div class="card-body">
-                    <h5>Produtos</h5>
-                    <p class="card-text">
-                        Consulte e Cadastre seus produtos
-                    </p>
-                    <a href="/produtos" class="btn btn-primary">Produtos</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="card-deck">
             <div class="card border border-primary mb-3" style="width: 20rem;">
                 <div class="card-body">
                     <h5>Entradas e Saídas</h5>
@@ -43,6 +20,29 @@
                         Selecione produtos e gere uma lista de compras
                     </p>
                     <a href="/listaCompras" class="btn btn-primary">Lista de Compras</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="card-deck">
+            <div class="card border border-primary mb-3" style="width: 20rem;">
+                <div class="card-body">
+                    <h5>Produtos</h5>
+                    <p class="card-text">
+                        Consulte e Cadastre seus produtos
+                    </p>
+                    <a href="/produtos" class="btn btn-primary">Produtos</a>
+                </div>
+            </div>
+            <div class="card border border-primary mb-3" style="width: 20rem;">
+                <div class="card-body">
+                    <h5>Categorias</h5>
+                    <p class="card-text">
+                        Consulte e Cadastre suas categorias
+                    </p>
+                    <a href="/categorias" class="btn btn-primary">Categorias</a>
                 </div>
             </div>
         </div>

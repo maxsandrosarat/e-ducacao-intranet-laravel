@@ -98,13 +98,7 @@
                 <a class="nav-link" href="{{ route('aluno.login') }}">{{ __('Login(Aluno)') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('prof.login') }}">{{ __('Login(Professor)') }}</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="{{ route('outro.login') }}">{{ __('Login(Colaborador)') }}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.login') }}">{{ __('Login(Admin)') }}</a>
             </li>
             <!--@if (Route::has('register'))
             <li class="nav-item">

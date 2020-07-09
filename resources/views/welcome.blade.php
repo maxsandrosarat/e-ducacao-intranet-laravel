@@ -86,10 +86,8 @@
                                         <h4>FAÇA LOGIN COMO</h4>
                                         <h4><a href="{{ route('responsavel.login') }}" class="badge badge-dark">RESPONSÁVEL</a>
                                         <a href="{{ route('aluno.login') }}" class="badge badge-dark">ALUNO</a>
-                                        <a href="{{ route('prof.login') }}" class="badge badge-dark">PROFESSOR</a>
                                         <a href="{{ route('outro.login') }}" class="badge badge-dark">COLABORADOR</a>
                                         <!--<a href="{{ route('login') }}" class="badge badge-dark">USUÁRIO</a>-->
-                                        <a href="{{ route('admin.login') }}" class="badge badge-dark">ADMIN</a></h4>
                                 @endauth
                             @endauth
                         @endauth

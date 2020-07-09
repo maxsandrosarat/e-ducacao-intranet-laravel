@@ -103,7 +103,33 @@
                                                         <label for="titulo">Titulo Recado</label>
                                                         <input type="text" class="form-control" name="titulo" id="titulo" value="{{$recado->titulo}}" required>
                                                         <label for="descricao">Descrição
-                                                        <textarea class="form-control" name="descricao" id="descricao" rows="10" cols="60">{{$recado->descricao}}</textarea></label>
+                                                        <textarea class="form-control" name="descricao" id="descricao" rows="10" cols="60" required>{{$recado->descricao}}</textarea></label>
+                                                        <h5>Geral?</h5>
+                                                        <input type="radio" id="sim" name="geral" value="1" @if($recado->geral=="1") checked @endif required>
+                                                        <label for="sim">Sim</label>
+                                                        <input type="radio" id="nao" name="geral" value="0" @if($recado->geral=="0") checked @endif required>
+                                                        <label for="nao">Não</label>
+                                                        <br/>
+                                                        <select class="custom-select" id="turma" name="turma" required>
+                                                            <option value="@if($recado->turma=="") @else {{$recado->turma->id}} @endif">@if($recado->turma=="")Selecione @else {{$recado->turma->serie}}º ANO {{$recado->turma->turma}}@endif</option>
+                                                            @foreach ($turmas as $turma)
+                                                                @if($recado->turma!="" && $turma->id==$recado->turma->id)
+                                                                @else
+                                                                <option value="{{$turma->id}}">{{$turma->serie}}º ANO {{$turma->turma}} (@if($turma->turno=='M') Matutino @else @if($turma->turno=='V') Vespertino @else Noturno @endif @endif)</option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
+                                                        <br/>
+                                                        <h5>Ou</h5>
+                                                        <select class="custom-select" id="aluno" name="aluno" required>
+                                                            <option value="@if($recado->aluno=="") @else {{$recado->aluno->id}} @endif">@if($recado->aluno=="")Selecione @else {{$recado->aluno->name}}@endif</option>
+                                                            @foreach ($alunos as $aluno)
+                                                                @if($recado->aluno!="" && $aluno->id==$recado->aluno->id)
+                                                                @else
+                                                                <option value="{{$aluno->id}}">{{$aluno->name}}</option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="submit" class="btn btn-primary btn-sn">Salvar</button>
@@ -147,28 +173,36 @@
                             <label for="titulo">Titulo Recado</label>
                             <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Digite o titulo" required>
                             <label for="descricao">Descrição
-                            <textarea class="form-control" name="descricao" id="descricao" rows="10" cols="60"></textarea></label>
+                            <textarea class="form-control" name="descricao" id="descricao" rows="10" cols="60" required></textarea></label>
                             <br/>
-                            <h5>Geral?</h5>
-                            <input type="radio" id="sim" name="geral" value="1" required>
-                            <label for="sim">Sim</label>
-                            <input type="radio" id="nao" name="geral" value="0" required>
-                            <label for="nao">Não</label>
-                            <br/>
-                            <select class="custom-select" id="turma" name="turma">
-                                <option value="">Selecione uma turma</option>
-                                @foreach ($turmas as $turma)
-                                    <option value="{{$turma->id}}">{{$turma->serie}}º ANO {{$turma->turma}} (@if($turma->turno=='M') Matutino @else @if($turma->turno=='V') Vespertino @else Noturno @endif @endif)</option>
-                                @endforeach
+                            <label for="selectGeral">Geral?</label>
+                            <select class="custom-select" name="geral" id="selectGeral">
+                                <option value="">Selecione</option>
+                                <option value="1">SIM</option>
+                                <option value="0">NÃO</option>
                             </select>
                             <br/>
-                            <h5>Ou</h5>
-                            <select class="custom-select" id="aluno" name="aluno">
-                                <option value="">Selecione um aluno</option>
-                                    @foreach ($alunos as $aluno)
-                                        <option value="{{$aluno->id}}">{{$aluno->name}}</option>
-                                    @endforeach
-                            </select>
+                            <div id="principalSelect">
+                                <div id="1">
+                                </div>
+                                <div id="0">
+                                    <br/>
+                                    <select class="custom-select" id="turma" name="turma">
+                                        <option value="">Selecione uma turma</option>
+                                        @foreach ($turmas as $turma)
+                                            <option value="{{$turma->id}}">{{$turma->serie}}º ANO {{$turma->turma}} (@if($turma->turno=='M') Matutino @else @if($turma->turno=='V') Vespertino @else Noturno @endif @endif)</option>
+                                        @endforeach
+                                    </select>
+                                    <br/>
+                                    <h5>Ou</h5>
+                                    <select class="custom-select" id="aluno" name="aluno">
+                                        <option value="">Selecione um aluno</option>
+                                            @foreach ($alunos as $aluno)
+                                                <option value="{{$aluno->id}}">{{$aluno->name}}</option>
+                                            @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary btn-sn">Salvar</button>

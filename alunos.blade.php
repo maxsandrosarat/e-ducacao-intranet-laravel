@@ -61,22 +61,7 @@
                     @foreach ($alunos as $aluno)
                     <tr>
                         <td>{{$aluno->id}}</td>
-                        <td width="120"><button type="button" data-toggle="modal" data-target="#exampleModalFoto{{$aluno->id}}">@if($aluno->foto!="")<img style="margin:0px; padding:0px;" src="/storage/{{$aluno->foto}}" alt="foto_aluno" width="50%">@endif</button></td>
-						<!-- Modal -->
-                        <div class="modal fade bd-example-modal-lg" id="exampleModalFoto{{$aluno->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <img src="/storage/{{$aluno->foto}}" alt="foto_aluno" style="width: 100%">
-                            </div>
-                            </div>
-                        </div>
-                        </div>
+                        <td width="120">@if($aluno->foto!="")<img style="border-radius: 20px; margin:0px; padding:0px;" src="/storage/{{$aluno->foto}}" alt="foto_aluno" width="50%">@endif</td>
                         <td>{{$aluno->name}}</td>
                         <td>{{$aluno->email}}</td>
                         <td>{{$aluno->turma->serie}}º ANO {{$aluno->turma->turma}} (@if($aluno->turma->turno=='M') Matutino @else @if($aluno->turma->turno=='V') Vespertino @else Noturno @endif @endif)</td>
